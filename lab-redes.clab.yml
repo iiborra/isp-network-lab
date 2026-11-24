@@ -26,6 +26,15 @@ topology:
         - router3-frr.conf:/etc/frr/frr.conf
       exec:
         - ip route del default
+    pc-a:
+      kind: linux
+      image: alpine:3.20
+      exec:
+        - ip addr add 192.168.8.2/24 dev eth1
+        - ip route del default
+        - ip route add default via 192.168.8.1
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
     - endpoints: ["router2:eth2", "router3:eth1"]
+    - endpoints: ["router1:eth2", "pc-a:eth1"]
+
