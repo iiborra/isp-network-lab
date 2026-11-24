@@ -8,18 +8,24 @@ topology:
       binds:
         - daemons:/etc/frr/daemons
         - router1-frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip route del default
     router2:
       kind: linux
       image: quay.io/frrouting/frr:10.2.1
       binds:
         - daemons:/etc/frr/daemons
         - router2-frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip route del default
     router3:
       kind: linux
       image: quay.io/frrouting/frr:10.2.1
       binds:
         - daemons:/etc/frr/daemons
         - router3-frr.conf:/etc/frr/frr.conf
+      exec:
+        - ip route del default
   links:
     - endpoints: ["router1:eth1", "router2:eth1"]
     - endpoints: ["router2:eth2", "router3:eth1"]
